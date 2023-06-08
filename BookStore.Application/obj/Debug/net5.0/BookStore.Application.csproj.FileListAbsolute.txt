@@ -1,0 +1,12 @@
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\bin\Debug\net5.0\BookStore.Application.deps.json
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\bin\Debug\net5.0\BookStore.Application.dll
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\bin\Debug\net5.0\ref\BookStore.Application.dll
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\bin\Debug\net5.0\BookStore.Application.pdb
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\obj\Debug\net5.0\BookStore.Application.csproj.AssemblyReference.cache
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\obj\Debug\net5.0\BookStore.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\obj\Debug\net5.0\BookStore.Application.AssemblyInfoInputs.cache
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\obj\Debug\net5.0\BookStore.Application.AssemblyInfo.cs
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\obj\Debug\net5.0\BookStore.Application.csproj.CoreCompileInputs.cache
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\obj\Debug\net5.0\BookStore.Application.dll
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\obj\Debug\net5.0\ref\BookStore.Application.dll
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.Application\obj\Debug\net5.0\BookStore.Application.pdb
