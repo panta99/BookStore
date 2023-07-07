@@ -16,26 +16,31 @@ namespace BookStore.Implementation.UseCases.Queries
     public class EfGetAuthorsQuery : EfUseCase, IGetAuthorsQuery
     {
         protected readonly IMapper _mapper;
-        public EfGetAuthorsQuery(BookStoreContext context, IMapper mapper)
+        public EfGetAuthorsQuery(BookStoreContext context/*, IMapper mapper*/)
             : base(context)
         {
-            _mapper = mapper;
+            //_mapper = mapper;
         }
         public int Id => 1;
 
         public string Name => "Search authors";
 
-        public string Description => "";
-
-        public IEnumerable<GetAuthorDto> Execute(AuthorSearch search)
+        public string Description => "Search author by keyword";
+        public PagedResponse<GetAuthorDto> Execute(AuthorSearch search)
         {
-            var authors = Context.Authors.AsQueryable();
+            var query = Context.Authors.AsQueryable();
             if (!string.IsNullOrEmpty(search.Keyword))
             {
-                authors = authors.Where(x => (x.FirstName.ToLower() + ' ' + x.LastName.ToLower()).Contains(search.Keyword));
-                authors.ToList();
+                query = query.Where(x => (x.FirstName.ToLower() + ' ' + x.LastName.ToLower()).Contains(search.Keyword));
+                query.ToList();
             }
-            return _mapper.Map<List<GetAuthorDto>>(authors);
+            //return _mapper.Map<List<GetAuthorDto>>(authors);
+            return query.ToPagedResponse<Author, GetAuthorDto>(search, x => new GetAuthorDto
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName
+            });
         }
     }
 }

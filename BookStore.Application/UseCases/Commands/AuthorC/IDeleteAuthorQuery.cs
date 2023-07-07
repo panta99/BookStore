@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Application.Searches
+namespace BookStore.Application.UseCases.Commands.AuthorC
 {
-    public class AuthorSearch : PagedSearch
+    public interface IDeleteAuthorQuery : ICommand<int>
     {
-        public string Keyword { get; set; }
     }
 }

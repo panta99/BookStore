@@ -1,7 +1,9 @@
 ﻿using BookStore.Application.Searches;
 using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands;
+using BookStore.Application.UseCases.Commands.AuthorC;
 using BookStore.Application.UseCases.DTO;
+using BookStore.Application.UseCases.DTO.AuthorDTOs;
 using BookStore.Application.UseCases.Queries;
 using BookStore.DataAccess;
 using Microsoft.AspNetCore.Mvc;
@@ -50,8 +52,12 @@ namespace BookStore.API.Controllers
 
         // PUT api/<AuthorController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] UpdateAuthorDto dto,
+                                         [FromServices] IUpdateAuthorCommand command)
         {
+            dto.Id = id;
+            command.Execute(dto);
+            return Ok();
         }
 
         // DELETE api/<AuthorController>/5

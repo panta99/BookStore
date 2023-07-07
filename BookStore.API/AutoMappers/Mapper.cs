@@ -13,6 +13,7 @@ namespace BookStore.Implementation.AutoMappers
     {
         public Mapper()
         {
+
             CreateMap<Author, GetAuthorDto>().ReverseMap();
             CreateMap<Author, AddAuthorDto>().ReverseMap();
         }

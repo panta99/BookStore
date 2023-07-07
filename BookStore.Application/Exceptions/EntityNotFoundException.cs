@@ -8,8 +8,8 @@ namespace BookStore.Application.UseCases.Exceptions
 {
     public class EntityNotFoundException : Exception
     {
-        public EntityNotFoundException(int id, Type type)
-            : base($"Entity of type {type.Name} with and id of {id} was not found.")
+        public EntityNotFoundException(int id, string type)
+            : base($"Entity of type {type} with and id of {id} was not found.")
         {
         }
     }

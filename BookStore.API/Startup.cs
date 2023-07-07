@@ -46,9 +46,8 @@ namespace BookStore.API
                 var queryHandler = new QueryHandler();
                 return queryHandler;
             });
+            services.AddAuthorCommandsAndQueries();
             services.AddValidators();
-            services.AddTransient<IGetAuthorsQuery, EfGetAuthorsQuery>();
-            services.AddTransient<IAddAuthorCommand, EfAddAuthorCommand>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddControllers();
             services.AddSwaggerGen(c =>

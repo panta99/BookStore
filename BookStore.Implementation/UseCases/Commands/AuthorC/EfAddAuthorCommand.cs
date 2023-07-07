@@ -17,23 +17,27 @@ namespace BookStore.Implementation.UseCases.Commands.Author1
     {
         protected readonly IMapper _mapper;
         private AddAuthorValidator _validator;
-        public EfAddAuthorCommand(BookStoreContext context,AddAuthorValidator validator, IMapper mapper) 
+        public EfAddAuthorCommand(BookStoreContext context,AddAuthorValidator validator) 
             : base(context)
         {
             _validator = validator;
-            _mapper = mapper;
         }
 
         public int Id => 2;
 
         public string Name => "Add author";
 
-        public string Description => "";
+        public string Description => "Adding author";
 
         public void Execute(AddAuthorDto request)
         {
             _validator.ValidateAndThrow(request);
-            var author = _mapper.Map<Author>(request);
+            //_mapper.Map<Author>(request);
+            var author = new Author
+            {
+                FirstName = request.FirstName,
+                LastName = request.LastName
+            };
             Context.Add(author);
             Context.SaveChanges();
         }

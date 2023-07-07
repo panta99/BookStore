@@ -18,8 +18,11 @@ namespace BookStore.Implementation.Validators
                                     .WithMessage("First name is required");
             RuleFor(x => x.LastName).NotEmpty()
                                    .WithMessage("Last name is required");
-            RuleFor(x => x.FirstName + ' ' + x.LastName).Must(x => !context.Authors.Any(y => y.FirstName+' '+y.LastName == x))
-                                                        .WithMessage("Author already exsist");
+            //RuleFor(x => x.FirstName + ' ' + x.LastName).Must(x => !context.Authors.Any(y => y.FirstName+' '+y.LastName == x))
+            //                                            .WithMessage("Author already exsist");
+            RuleFor(x => new { x.FirstName, x.LastName }).Must(y => !context.Authors.Any(x => x.FirstName == y.FirstName && x.LastName == y.LastName))
+                .OverridePropertyName("First name and last name")
+                .WithMessage($"Author with this first name and last name already exists");
         }
     }
 }
