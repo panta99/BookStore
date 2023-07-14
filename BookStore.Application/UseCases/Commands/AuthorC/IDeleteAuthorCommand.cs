@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Application.UseCases.Commands.AuthorC
 {
-    public interface IDeleteAuthorQuery : ICommand<int>
+    public interface IDeleteAuthorCommand : ICommand<int>
     {
     }
 }

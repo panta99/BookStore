@@ -25,6 +25,7 @@ namespace BookStore.API.Extensions
             services.AddTransient<IGetAuthorsQuery, EfGetAuthorsQuery>();
             services.AddTransient<IAddAuthorCommand, EfAddAuthorCommand>();
             services.AddTransient<IUpdateAuthorCommand, EfUpdateAuthorCommand>();
+            services.AddTransient<IDeleteAuthorCommand, EfDeleteAuthorCommand>();
         }
     }
 }

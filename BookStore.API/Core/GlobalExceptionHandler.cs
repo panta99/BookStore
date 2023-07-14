@@ -1,4 +1,6 @@
-﻿using BookStore.Application.Logging;
+﻿using BookStore.Application.Exceptions;
+using BookStore.Application.Logging;
+using BookStore.Application.UseCases.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -32,6 +34,22 @@ namespace BookStore.API.Core
                     x.PropertyName
                 });
                 await context.Response.WriteAsJsonAsync(errors);
+            }
+            catch (EntityNotFoundException ex)
+            {
+                context.Response.StatusCode = 404;
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    message = ex.Message
+                });
+            }
+            catch (ConflictException ex)
+            {
+                context.Response.StatusCode = 409;
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    message = ex.Message
+                });
             }
         }
     }
