@@ -33,7 +33,8 @@ namespace BookStore.Implementation.UseCases.Commands.AuthorC
             var check = query.BookAuthors.Any();
             if(check)
             {
-                throw new ConflictException(Name, $"Can't delete author with id={query.Id} due to dependencies or associations");
+                var message = $"Can't delete author with id={query.Id} due to dependencies or associations";
+                throw new ConflictException(Name, message);
             }
             query.DeletedAt = DateTime.UtcNow;
             Context.SaveChanges();
