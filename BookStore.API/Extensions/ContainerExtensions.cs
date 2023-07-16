@@ -22,9 +22,12 @@ namespace BookStore.API.Extensions
     {
         public static void AddValidators(this IServiceCollection services)
         {
+            //Author validators
             services.AddTransient<AddAuthorValidator>();
             services.AddTransient<UpdateAuthorValidator>();
+            //Genre Validators
             services.AddTransient<AddGenreValidator>();
+            services.AddTransient<UpdateGenreValidator>();
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
         {
@@ -37,6 +40,8 @@ namespace BookStore.API.Extensions
         {
             services.AddTransient<IGetGenresQuery, EfGetGenresQuery>();
             services.AddTransient<IAddGenreCommand, EfAddGenreCommand>();
+            services.AddTransient<IUpdateGenreCommand, EfUpdateGenreCommand>();
+            services.AddTransient<IDeleteGenreCommand, EfDeleteGenreCommand>();
         }
     }
 }

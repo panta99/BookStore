@@ -50,14 +50,22 @@ namespace BookStore.API.Controllers
 
         // PUT api/<GenreController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, 
+                                    [FromBody] UpdateGenreDto dto,
+                                    [FromServices] IUpdateGenreCommand command)
         {
+            dto.Id = id;
+            command.Execute(dto);
+            return Ok();
         }
 
         // DELETE api/<GenreController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id,
+                               [FromServices] IDeleteGenreCommand command)
         {
+            command.Execute(id);
+            return NoContent();
         }
     }
 }
