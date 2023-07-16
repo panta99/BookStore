@@ -23,16 +23,8 @@ namespace BookStore.API.Controllers
         {
             _context = context;
         }
-        //// GET: api/<GenreController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        // GET api/<GenreController>/5
         [HttpGet]
-        public IActionResult Get([FromQuery] GenreSearch search,
+        public IActionResult GetGenres([FromQuery] GenreSearch search,
                                  [FromServices] IGetGenresQuery query,
                                  [FromServices] IQueryHandler handler)
         {
@@ -41,7 +33,7 @@ namespace BookStore.API.Controllers
 
         // POST api/<GenreController>
         [HttpPost]
-        public IActionResult Post([FromBody] AddGenreDto dto,
+        public IActionResult AddGenre([FromBody] AddGenreDto dto,
                                   [FromServices] IAddGenreCommand command)
         {
             command.Execute(dto);
@@ -50,7 +42,7 @@ namespace BookStore.API.Controllers
 
         // PUT api/<GenreController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, 
+        public IActionResult UpdateGenre(int id, 
                                     [FromBody] UpdateGenreDto dto,
                                     [FromServices] IUpdateGenreCommand command)
         {
@@ -61,7 +53,7 @@ namespace BookStore.API.Controllers
 
         // DELETE api/<GenreController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id,
+        public IActionResult DeleteGenre(int id,
                                [FromServices] IDeleteGenreCommand command)
         {
             command.Execute(id);
