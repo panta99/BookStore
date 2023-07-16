@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookStore.Application.UseCaseHandling;
+using BookStore.Application.UseCases.Commands.GenreC;
+using BookStore.Application.UseCases.DTO.GenreDTOs;
+using BookStore.Application.UseCases.Queries.GenreQ;
+using BookStore.Application.UseCases.Queries.Searches;
+using BookStore.DataAccess;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,24 +18,34 @@ namespace BookStore.API.Controllers
     [ApiController]
     public class GenreController : ControllerBase
     {
-        // GET: api/<GenreController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private BookStoreContext _context;
+        public GenreController(BookStoreContext context)
         {
-            return new string[] { "value1", "value2" };
+            _context = context;
         }
+        //// GET: api/<GenreController>
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
         // GET api/<GenreController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        public IActionResult Get([FromQuery] GenreSearch search,
+                                 [FromServices] IGetGenresQuery query,
+                                 [FromServices] IQueryHandler handler)
         {
-            return "value";
+            return Ok(handler.HandleQuery(query, search));
         }
 
         // POST api/<GenreController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] AddGenreDto dto,
+                                  [FromServices] IAddGenreCommand command)
         {
+            command.Execute(dto);
+            return StatusCode(201);
         }
 
         // PUT api/<GenreController>/5

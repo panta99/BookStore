@@ -32,7 +32,6 @@ namespace BookStore.Implementation.UseCases.Queries
             if (!string.IsNullOrEmpty(search.Keyword))
             {
                 query = query.Where(x => (x.FirstName.ToLower() + ' ' + x.LastName.ToLower()).Contains(search.Keyword));
-                query.ToList();
             }
             //return _mapper.Map<List<GetAuthorDto>>(authors);
             return query.ToPagedResponse<Author, GetAuthorDto>(search, x => new GetAuthorDto
