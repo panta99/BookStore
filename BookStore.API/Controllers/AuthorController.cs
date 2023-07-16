@@ -65,7 +65,7 @@ namespace BookStore.API.Controllers
         public IActionResult Delete(int id,[FromServices] IDeleteAuthorCommand command)
         {
             command.Execute(id);
-            return Ok();
+            return NoContent();
         }
     }
 }
