@@ -34,7 +34,7 @@ namespace BookStore.API.Controllers
 
         // GET api/<AuthorController>/5
         [HttpGet]
-        public IActionResult Get([FromQuery] AuthorSearch search,
+        public IActionResult GetAuthors([FromQuery] AuthorSearch search,
                           [FromServices] IGetAuthorsQuery query,
                           [FromServices] IQueryHandler handler)
         {
@@ -43,7 +43,7 @@ namespace BookStore.API.Controllers
 
         // POST api/<AuthorController>
         [HttpPost]
-        public IActionResult Post([FromBody] AddAuthorDto dto,
+        public IActionResult AddAuthor([FromBody] AddAuthorDto dto,
                                   [FromServices] IAddAuthorCommand command)
         {
             command.Execute(dto);
@@ -52,7 +52,7 @@ namespace BookStore.API.Controllers
 
         // PUT api/<AuthorController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UpdateAuthorDto dto,
+        public IActionResult UpdateAuthor(int id, [FromBody] UpdateAuthorDto dto,
                                          [FromServices] IUpdateAuthorCommand command)
         {
             dto.Id = id;
@@ -62,7 +62,7 @@ namespace BookStore.API.Controllers
 
         // DELETE api/<AuthorController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id,[FromServices] IDeleteAuthorCommand command)
+        public IActionResult DeleteAuthor(int id,[FromServices] IDeleteAuthorCommand command)
         {
             command.Execute(id);
             return NoContent();
