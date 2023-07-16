@@ -38,6 +38,7 @@ namespace BookStore.Implementation.UseCases.Commands.AuthorC
             _validator.ValidateAndThrow(request);
             query.FirstName = request.FirstName;
             query.LastName = request.LastName;
+            query.ModifiedAt = DateTime.UtcNow;
             Context.SaveChanges();
         }
     }
