@@ -28,7 +28,7 @@ namespace BookStore.Implementation.UseCases.Queries
         public string Description => "Search author by keyword";
         public IEnumerable<GetAuthorDto> Execute(AuthorSearch search)
         {
-            var query = Context.Authors.AsQueryable();
+            var query = Context.Authors.Where(x=> !x.DeletedAt.HasValue).AsQueryable();
             if (!string.IsNullOrEmpty(search.Keyword))
             {
                 query = query.Where(x => (x.FirstName.ToLower() + ' ' + x.LastName.ToLower()).Contains(search.Keyword));

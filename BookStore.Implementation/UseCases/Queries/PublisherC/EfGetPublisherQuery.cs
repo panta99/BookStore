@@ -25,7 +25,7 @@ namespace BookStore.Implementation.UseCases.Queries.PublisherC
 
         public IEnumerable<GetPublisherDto> Execute(PublisherSearch search)
         {
-            var query = Context.Publishers.AsQueryable();
+            var query = Context.Publishers.Where(x=> !x.DeletedAt.HasValue).AsQueryable();
             if (!string.IsNullOrEmpty(search.Keyword))
             {
                 query = query.Where(x => x.Name.ToLower().Contains(search.Keyword.ToLower()));

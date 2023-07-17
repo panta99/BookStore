@@ -37,16 +37,20 @@ namespace BookStore.API.Controllers
 
         // PUT api/<PublisherController>/5
         [HttpPut("{id}")]
-        public IActionResult UpdatePublisher(int id, [FromBody] string value)
+        public IActionResult UpdatePublisher(int id, [FromBody] UpdatePublisherDto dto,
+                                                     [FromServices] IUpdatePublisherCommand command)
         {
-
+            dto.Id = id;
+            command.Execute(dto);
             return Ok();
         }
 
         // DELETE api/<PublisherController>/5
         [HttpDelete("{id}")]
-        public IActionResult DeletePublisher(int id)
+        public IActionResult DeletePublisher(int id,
+                                             [FromServices] IDeletePublisherCommand command)
         {
+            command.Execute(id);
             return NoContent();
         }
     }

@@ -27,7 +27,7 @@ namespace BookStore.Implementation.UseCases.Queries.GenreQ
 
         public IEnumerable<GetGenreDto> Execute(GenreSearch search)
         {
-            var query = Context.Genres.AsQueryable();
+            var query = Context.Genres.Where(x => !x.DeletedAt.HasValue).AsQueryable();
             if (!string.IsNullOrEmpty(search.Keyword))
             {
                 query = query.Where(x => x.Name.ToLower().Contains(search.Keyword.ToLower()));

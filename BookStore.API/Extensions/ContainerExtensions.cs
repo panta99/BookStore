@@ -35,6 +35,7 @@ namespace BookStore.API.Extensions
             services.AddTransient<UpdateGenreValidator>();
             //Publisher Validators
             services.AddTransient<AddPublisherValidator>();
+            services.AddTransient<UpdatePublisherValidator>();
 
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
@@ -55,6 +56,8 @@ namespace BookStore.API.Extensions
         {
             services.AddTransient<IGetPublisherQuery, EfGetPublisherQuery>();
             services.AddTransient<IAddPublisherCommand, EfAddPublisherCommand>();
+            services.AddTransient<IUpdatePublisherCommand, EfUpdatePublisherCommand>();
+            services.AddTransient<IDeletePublisherCommand, EfDeletePublisherCommand>();
         }
     }
 }
