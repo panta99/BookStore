@@ -2,16 +2,20 @@
 using BookStore.Application.UseCases.Commands.AuthorC;
 using BookStore.Application.UseCases.Commands.GenreC;
 using BookStore.Application.UseCases.Commands.PublisherC;
+using BookStore.Application.UseCases.Commands.YearPublishedC;
 using BookStore.Application.UseCases.Queries;
 using BookStore.Application.UseCases.Queries.GenreQ;
 using BookStore.Application.UseCases.Queries.PublisherQ;
+using BookStore.Application.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.UseCases.Commands.Author1;
 using BookStore.Implementation.UseCases.Commands.AuthorC;
 using BookStore.Implementation.UseCases.Commands.GenreC;
 using BookStore.Implementation.UseCases.Commands.PublisherC;
+using BookStore.Implementation.UseCases.Commands.YearPublishedC;
 using BookStore.Implementation.UseCases.Queries;
 using BookStore.Implementation.UseCases.Queries.GenreQ;
 using BookStore.Implementation.UseCases.Queries.PublisherC;
+using BookStore.Implementation.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.Validators;
 using BookStore.Implementation.Validators.GenreValidators;
 using BookStore.Implementation.Validators.PublisherValidators;
@@ -58,6 +62,11 @@ namespace BookStore.API.Extensions
             services.AddTransient<IAddPublisherCommand, EfAddPublisherCommand>();
             services.AddTransient<IUpdatePublisherCommand, EfUpdatePublisherCommand>();
             services.AddTransient<IDeletePublisherCommand, EfDeletePublisherCommand>();
+        }
+        public static void AddYearPublishedCommandsAndQueries(this IServiceCollection services)
+        {
+            services.AddTransient<IGetYearPublishedQuery, EfGetYearPublishedQuery>();
+            services.AddTransient<IAddYearPublishedCommand, EfAddYearPublishedCommand>();
         }
     }
 }
