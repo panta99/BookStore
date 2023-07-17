@@ -26,7 +26,7 @@ namespace BookStore.Implementation.UseCases.Queries
         public string Name => "Search authors";
 
         public string Description => "Search author by keyword";
-        public PagedResponse<GetAuthorDto> Execute(AuthorSearch search)
+        public IEnumerable<GetAuthorDto> Execute(AuthorSearch search)
         {
             var query = Context.Authors.AsQueryable();
             if (!string.IsNullOrEmpty(search.Keyword))
@@ -34,12 +34,16 @@ namespace BookStore.Implementation.UseCases.Queries
                 query = query.Where(x => (x.FirstName.ToLower() + ' ' + x.LastName.ToLower()).Contains(search.Keyword));
             }
             //return _mapper.Map<List<GetAuthorDto>>(authors);
-            return query.ToPagedResponse<Author, GetAuthorDto>(search, x => new GetAuthorDto
+            var result = query.Select(x => new GetAuthorDto
             {
                 Id = x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName
-            });
+            })
+                .OrderBy(x => x.FirstName)
+                .ThenBy(x => x.LastName)
+                .ToList();
+            return result;
         }
     }
 }

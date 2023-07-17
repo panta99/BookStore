@@ -1,15 +1,20 @@
 ﻿using BookStore.Application.UseCases.Commands;
 using BookStore.Application.UseCases.Commands.AuthorC;
 using BookStore.Application.UseCases.Commands.GenreC;
+using BookStore.Application.UseCases.Commands.PublisherC;
 using BookStore.Application.UseCases.Queries;
 using BookStore.Application.UseCases.Queries.GenreQ;
+using BookStore.Application.UseCases.Queries.PublisherQ;
 using BookStore.Implementation.UseCases.Commands.Author1;
 using BookStore.Implementation.UseCases.Commands.AuthorC;
 using BookStore.Implementation.UseCases.Commands.GenreC;
+using BookStore.Implementation.UseCases.Commands.PublisherC;
 using BookStore.Implementation.UseCases.Queries;
 using BookStore.Implementation.UseCases.Queries.GenreQ;
+using BookStore.Implementation.UseCases.Queries.PublisherC;
 using BookStore.Implementation.Validators;
 using BookStore.Implementation.Validators.GenreValidators;
+using BookStore.Implementation.Validators.PublisherValidators;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -28,6 +33,9 @@ namespace BookStore.API.Extensions
             //Genre Validators
             services.AddTransient<AddGenreValidator>();
             services.AddTransient<UpdateGenreValidator>();
+            //Publisher Validators
+            services.AddTransient<AddPublisherValidator>();
+
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
         {
@@ -42,6 +50,11 @@ namespace BookStore.API.Extensions
             services.AddTransient<IAddGenreCommand, EfAddGenreCommand>();
             services.AddTransient<IUpdateGenreCommand, EfUpdateGenreCommand>();
             services.AddTransient<IDeleteGenreCommand, EfDeleteGenreCommand>();
+        }
+        public static void AddPublisherCommandsAndQueries(this IServiceCollection services)
+        {
+            services.AddTransient<IGetPublisherQuery, EfGetPublisherQuery>();
+            services.AddTransient<IAddPublisherCommand, EfAddPublisherCommand>();
         }
     }
 }

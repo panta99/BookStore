@@ -48,6 +48,7 @@ namespace BookStore.API
             });
             services.AddAuthorCommandsAndQueries();
             services.AddGenreCommandsAndQueries();
+            services.AddPublisherCommandsAndQueries();
             services.AddValidators();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddControllers();

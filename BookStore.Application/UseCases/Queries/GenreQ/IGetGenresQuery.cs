@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Application.UseCases.Queries.GenreQ
 {
-    public interface IGetGenresQuery : IQuery<GenreSearch, PagedResponse<GetGenreDto>>
+    public interface IGetGenresQuery : IQuery<GenreSearch, IEnumerable<GetGenreDto>>
     {
     }
 }

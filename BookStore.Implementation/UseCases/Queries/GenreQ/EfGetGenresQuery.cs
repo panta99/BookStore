@@ -25,18 +25,21 @@ namespace BookStore.Implementation.UseCases.Queries.GenreQ
 
         public string Description => "Search genres by keyword";
 
-        public PagedResponse<GetGenreDto> Execute(GenreSearch search)
+        public IEnumerable<GetGenreDto> Execute(GenreSearch search)
         {
             var query = Context.Genres.AsQueryable();
             if (!string.IsNullOrEmpty(search.Keyword))
             {
                 query = query.Where(x => x.Name.ToLower().Contains(search.Keyword.ToLower()));
             }
-            return query.ToPagedResponse<Genre, GetGenreDto>(search, x => new GetGenreDto
+            var result = query.Select(x => new GetGenreDto
             {
                 Id = x.Id,
                 Name = x.Name
-            });
+            })
+                .OrderBy(x => x.Name)
+                .ToList();
+            return result;
         }
     }
 }
