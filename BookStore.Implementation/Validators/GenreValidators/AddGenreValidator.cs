@@ -11,10 +11,8 @@ namespace BookStore.Implementation.Validators.GenreValidators
 {
     public class AddGenreValidator : AbstractValidator<AddGenreDto>
     {
-        private readonly BookStoreContext _context;
         public AddGenreValidator(BookStoreContext context)
         {
-            _context = context;
             RuleFor(x => x.Name).NotEmpty()
                                .WithMessage("Name is required");
             RuleFor(x => x.Name).Must(y=> !context.Genres.Any(x=> x.Name.ToLower() == y.ToLower()))

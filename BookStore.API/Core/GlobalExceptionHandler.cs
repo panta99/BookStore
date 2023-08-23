@@ -51,7 +51,7 @@ namespace BookStore.API.Core
                     message = ex.Message
                 });
             }
-            catch (UnprocessableEntity ex)
+            catch (UnprocessableEntityException ex)
             {
                 context.Response.StatusCode = 422;
                 await context.Response.WriteAsJsonAsync(new

@@ -50,6 +50,7 @@ namespace BookStore.API
             services.AddGenreCommandsAndQueries();
             services.AddPublisherCommandsAndQueries();
             services.AddYearPublishedCommandsAndQueries();
+            services.AddCoverCommandsAndQueries();
             services.AddValidators();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddControllers();

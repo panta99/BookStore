@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BookStore.Application.Exceptions
 {
-    public class UnprocessableEntity : Exception
+    public class UnprocessableEntityException : Exception
     {
-        public UnprocessableEntity(string message)
+        public UnprocessableEntityException(string message)
             :base(message)
         {
         }

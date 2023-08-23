@@ -29,13 +29,13 @@ namespace BookStore.Implementation.UseCases.Commands.YearPublishedC
             if(year<1970 || year > curryear)
             {
                 var message = $"Year must be between 1970 - {curryear}";
-                throw new UnprocessableEntity(message);
+                throw new UnprocessableEntityException(message);
             }
             var check = Context.YearPublished.Any(x => x.Year == year);
             if (check)
             {
                 var message = $"Year {year} alredy exists";
-                throw new UnprocessableEntity(message);
+                throw new UnprocessableEntityException(message);
             }
             var yearforAdd = new YearPublished
             {

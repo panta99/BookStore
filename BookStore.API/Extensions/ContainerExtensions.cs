@@ -1,22 +1,27 @@
 ﻿using BookStore.Application.UseCases.Commands;
 using BookStore.Application.UseCases.Commands.AuthorC;
+using BookStore.Application.UseCases.Commands.CoverC;
 using BookStore.Application.UseCases.Commands.GenreC;
 using BookStore.Application.UseCases.Commands.PublisherC;
 using BookStore.Application.UseCases.Commands.YearPublishedC;
 using BookStore.Application.UseCases.Queries;
+using BookStore.Application.UseCases.Queries.CoverQ;
 using BookStore.Application.UseCases.Queries.GenreQ;
 using BookStore.Application.UseCases.Queries.PublisherQ;
 using BookStore.Application.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.UseCases.Commands.Author1;
 using BookStore.Implementation.UseCases.Commands.AuthorC;
+using BookStore.Implementation.UseCases.Commands.CoverC;
 using BookStore.Implementation.UseCases.Commands.GenreC;
 using BookStore.Implementation.UseCases.Commands.PublisherC;
 using BookStore.Implementation.UseCases.Commands.YearPublishedC;
 using BookStore.Implementation.UseCases.Queries;
+using BookStore.Implementation.UseCases.Queries.CoverQ;
 using BookStore.Implementation.UseCases.Queries.GenreQ;
 using BookStore.Implementation.UseCases.Queries.PublisherC;
 using BookStore.Implementation.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.Validators;
+using BookStore.Implementation.Validators.CoverValidators;
 using BookStore.Implementation.Validators.GenreValidators;
 using BookStore.Implementation.Validators.PublisherValidators;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +45,8 @@ namespace BookStore.API.Extensions
             //Publisher Validators
             services.AddTransient<AddPublisherValidator>();
             services.AddTransient<UpdatePublisherValidator>();
+            //Cover Validators
+            services.AddTransient<AddCoverValidator>();
 
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
@@ -67,6 +74,11 @@ namespace BookStore.API.Extensions
         {
             services.AddTransient<IGetYearPublishedQuery, EfGetYearPublishedQuery>();
             services.AddTransient<IAddYearPublishedCommand, EfAddYearPublishedCommand>();
+        }
+        public static void AddCoverCommandsAndQueries(this IServiceCollection services)
+        {
+            services.AddTransient<IGetCoverQuery, EfGetCoverQuery>();
+            services.AddTransient<IAddCoverCommand, EfAddCoverCommand>();
         }
     }
 }
