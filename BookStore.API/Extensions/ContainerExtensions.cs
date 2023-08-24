@@ -47,6 +47,7 @@ namespace BookStore.API.Extensions
             services.AddTransient<UpdatePublisherValidator>();
             //Cover Validators
             services.AddTransient<AddCoverValidator>();
+            services.AddTransient<UpdateCoverValidator>();
 
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
@@ -79,6 +80,9 @@ namespace BookStore.API.Extensions
         {
             services.AddTransient<IGetCoverQuery, EfGetCoverQuery>();
             services.AddTransient<IAddCoverCommand, EfAddCoverCommand>();
+            services.AddTransient<IUpdateCoverCommand, EfUpdateCoverCommand>();
+            services.AddTransient<IDeleteCoverCommand, EfDeleteCoverCommand>();
+
         }
     }
 }

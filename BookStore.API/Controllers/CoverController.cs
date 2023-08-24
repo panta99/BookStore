@@ -35,7 +35,7 @@ namespace BookStore.API.Controllers
 
         // POST api/<CoverController>
         [HttpPost]
-        public IActionResult Post([FromBody] AddCoverDto dto,
+        public IActionResult AddCover([FromBody] AddCoverDto dto,
                          [FromServices] IAddCoverCommand command)
         {
             command.Execute(dto);
@@ -44,14 +44,22 @@ namespace BookStore.API.Controllers
 
         // PUT api/<CoverController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult UpdateCover(int id, 
+                                        [FromBody] UpdateCoverDto dto,
+                                        [FromServices] IUpdateCoverCommand command)
         {
+            dto.Id = id;
+            command.Execute(dto);
+            return Ok();
         }
 
         // DELETE api/<CoverController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult DeleteCover(int id,
+                                         [FromServices] IDeleteCoverCommand command)
         {
+            command.Execute(id);
+            return NoContent();
         }
     }
 }

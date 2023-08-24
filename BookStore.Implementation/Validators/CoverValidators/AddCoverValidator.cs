@@ -13,8 +13,9 @@ namespace BookStore.Implementation.Validators.CoverValidators
     {
         public AddCoverValidator(BookStoreContext context)
         {
-            RuleFor(x => x.Name).NotEmpty();
-            RuleFor(x=> x.Name).Must(y=> !context.Genres.Any(x=> x.Name==y))
+            RuleFor(x => x.Name).NotEmpty()
+                                .WithMessage("Name is required");
+            RuleFor(x=> x.Name).Must(y=> !context.Covers.Any(x=> x.CoverType==y))
                                .WithMessage("Genre with this name already exists");
 
         }
