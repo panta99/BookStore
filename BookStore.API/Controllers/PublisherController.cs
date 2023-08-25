@@ -20,7 +20,7 @@ namespace BookStore.API.Controllers
         // GET api/<PublisherController>/5
         [HttpGet]
         public IActionResult GetPublishers([FromQuery] PublisherSearch search,
-                                           [FromServices] IGetPublisherQuery query,
+                                           [FromServices] IGetPublishersQuery query,
                                            [FromServices] IQueryHandler handler)
         {
             return Ok(handler.HandleQuery(query, search));

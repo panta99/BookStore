@@ -5,6 +5,7 @@ using BookStore.Application.UseCases.Commands.GenreC;
 using BookStore.Application.UseCases.Commands.PublisherC;
 using BookStore.Application.UseCases.Commands.YearPublishedC;
 using BookStore.Application.UseCases.Queries;
+using BookStore.Application.UseCases.Queries.BookQ;
 using BookStore.Application.UseCases.Queries.CoverQ;
 using BookStore.Application.UseCases.Queries.GenreQ;
 using BookStore.Application.UseCases.Queries.PublisherQ;
@@ -16,6 +17,7 @@ using BookStore.Implementation.UseCases.Commands.GenreC;
 using BookStore.Implementation.UseCases.Commands.PublisherC;
 using BookStore.Implementation.UseCases.Commands.YearPublishedC;
 using BookStore.Implementation.UseCases.Queries;
+using BookStore.Implementation.UseCases.Queries.BookQ;
 using BookStore.Implementation.UseCases.Queries.CoverQ;
 using BookStore.Implementation.UseCases.Queries.GenreQ;
 using BookStore.Implementation.UseCases.Queries.PublisherC;
@@ -66,7 +68,7 @@ namespace BookStore.API.Extensions
         }
         public static void AddPublisherCommandsAndQueries(this IServiceCollection services)
         {
-            services.AddTransient<IGetPublisherQuery, EfGetPublisherQuery>();
+            services.AddTransient<IGetPublishersQuery, EfGetPublisherQuery>();
             services.AddTransient<IAddPublisherCommand, EfAddPublisherCommand>();
             services.AddTransient<IUpdatePublisherCommand, EfUpdatePublisherCommand>();
             services.AddTransient<IDeletePublisherCommand, EfDeletePublisherCommand>();
@@ -78,11 +80,16 @@ namespace BookStore.API.Extensions
         }
         public static void AddCoverCommandsAndQueries(this IServiceCollection services)
         {
-            services.AddTransient<IGetCoverQuery, EfGetCoverQuery>();
+            services.AddTransient<IGetCoversQuery, EfGetCoverQuery>();
             services.AddTransient<IAddCoverCommand, EfAddCoverCommand>();
             services.AddTransient<IUpdateCoverCommand, EfUpdateCoverCommand>();
             services.AddTransient<IDeleteCoverCommand, EfDeleteCoverCommand>();
 
+        }
+        public static void AddBookCommandsAndQueries(this IServiceCollection services)
+        {
+            services.AddTransient<IGetBooksQuery, EfGetBooksQuery>();
+            services.AddTransient<IGetBookByIdQuery, EfGetBookByIdQuery>();
         }
     }
 }

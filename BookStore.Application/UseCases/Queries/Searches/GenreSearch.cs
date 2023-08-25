@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Application.UseCases.Queries.Searches
 {
-    public class GenreSearch : PagedSearch
+    public class GenreSearch
     {
         public string Keyword { get; set; }
     }

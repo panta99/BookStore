@@ -17,4 +17,8 @@
     <ProjectReference Include="..\BookStore.Implementation\BookStore.Implementation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

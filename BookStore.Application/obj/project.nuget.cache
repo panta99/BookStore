@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "8xBIKohyEbCHvoJwUVIf4MdZfvSk99+DqxxtJm5FuaIZgNnvYBhS7g4Mun4g8IUdbClPMX0qqZFsmNfs3fvh6A==",
+  "dgSpecHash": "XX4TNXKFe/Uat1J6ZPl33IEikcZBiOw24RZ7ycRlqysSBvDFM3Z3so9irmUdEohAmWAN68oi4atEyVwFV9rcCw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Panta\\Desktop\\aspProjekat\\BookStore\\BookStore.Application\\BookStore.Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Panta\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
+    "C:\\Users\\Panta\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\Panta\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

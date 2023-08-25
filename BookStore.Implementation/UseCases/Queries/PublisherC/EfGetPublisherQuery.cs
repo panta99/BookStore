@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Implementation.UseCases.Queries.PublisherC
 {
-    public class EfGetPublisherQuery : EfUseCase, IGetPublisherQuery
+    public class EfGetPublisherQuery : EfUseCase, IGetPublishersQuery
     {
         public EfGetPublisherQuery(BookStoreContext context) 
             : base(context)

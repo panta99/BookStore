@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BookStore.Application.Searches
+namespace BookStore.Application.UseCases.Commands.BookC
 {
-    public class AuthorSearch
+    interface IAddBookCommand
     {
-        public string Keyword { get; set; }
     }
 }

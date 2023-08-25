@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Application.UseCases.Queries.PublisherQ
 {
-    public interface IGetPublisherQuery : IQuery<PublisherSearch, IEnumerable<GetPublisherDto>>
+    public interface IGetPublishersQuery : IQuery<PublisherSearch, IEnumerable<GetPublisherDto>>
     {
     }
 }

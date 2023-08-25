@@ -27,7 +27,7 @@ namespace BookStore.API.Controllers
         // GET api/<CoverController>/5
         [HttpGet]
         public IActionResult GetCovers([FromQuery] CoverSearch search,
-                                       [FromServices] IGetCoverQuery query,
+                                       [FromServices] IGetCoversQuery query,
                                        [FromServices] IQueryHandler handler)
         {
             return Ok(handler.HandleQuery(query, search));

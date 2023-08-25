@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BookStore.Application.UseCases.Queries.CoverQ
 {
-    public interface IGetCoverQuery : IQuery<CoverSearch, IEnumerable<GetCoverDto>>
+    public interface IGetCoversQuery : IQuery<CoverSearch, IEnumerable<GetCoverDto>>
     {
     }
 }
