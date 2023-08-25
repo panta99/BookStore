@@ -1,9 +1,11 @@
 using BookStore.API.Core;
 using BookStore.API.Extensions;
+using BookStore.Application.Uploads;
 using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands;
 using BookStore.Application.UseCases.Queries;
 using BookStore.DataAccess;
+using BookStore.Implementation.Uploads;
 using BookStore.Implementation.UseCases.Commands.Author1;
 using BookStore.Implementation.UseCases.Queries;
 using Microsoft.AspNetCore.Builder;
@@ -46,6 +48,7 @@ namespace BookStore.API
                 var queryHandler = new QueryHandler();
                 return queryHandler;
             });
+            services.AddTransient<IBase64FileUploader, Base64FileUploader>();
             services.AddAuthorCommandsAndQueries();
             services.AddGenreCommandsAndQueries();
             services.AddPublisherCommandsAndQueries();

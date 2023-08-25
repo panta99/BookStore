@@ -1,4 +1,6 @@
 ﻿using BookStore.Application.UseCaseHandling;
+using BookStore.Application.UseCases.Commands.BookC;
+using BookStore.Application.UseCases.DTO.BookDTOs;
 using BookStore.Application.UseCases.Queries.BookQ;
 using BookStore.Application.UseCases.Queries.Searches;
 using Microsoft.AspNetCore.Mvc;
@@ -35,8 +37,11 @@ namespace BookStore.API.Controllers
 
         // POST api/<BookController>
         [HttpPost]
-        public void AddBook([FromBody] string value)
+        public IActionResult AddBook([FromBody] AddBookDto dto,
+                                     [FromServices] IAddBookCommand command)
         {
+            command.Execute(dto);
+            return StatusCode(201);
         }
 
         // PUT api/<BookController>/5

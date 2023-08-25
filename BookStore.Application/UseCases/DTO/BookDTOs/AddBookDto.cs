@@ -17,6 +17,8 @@ namespace BookStore.Application.UseCases.DTO.BookDTOs
         public int PublisherId { get; set; }
         public int PublishYearId { get; set; }
         public int CoverId { get; set; }
-        public IFormFile Image { get; set; }
+        public string BookImageFile { get; set; }
+        public IEnumerable<int> AuthorIds { get; set; }
+        public IEnumerable<int> GenreIds { get; set; }
     }
 }

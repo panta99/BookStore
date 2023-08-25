@@ -1,7 +1,9 @@
 ﻿using BookStore.Application.UseCases.DTO;
 using BookStore.Application.UseCases.DTO.BookDTOs;
+using BookStore.Application.UseCases.Exceptions;
 using BookStore.Application.UseCases.Queries.BookQ;
 using BookStore.DataAccess;
+using BookStore.Domain.Entites;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -25,7 +27,18 @@ namespace BookStore.Implementation.UseCases.Queries.BookQ
 
         public GetAllBookInfoDto Execute(int search)
         {
-            var book = Context.Books.Find(search);
+            var book = Context.Books
+                                    .Include(b=> b.BookAuthors).ThenInclude(b=> b.Author)
+                                    .Include(b=> b.BookGenres).ThenInclude(b=> b.Genre)
+                                    .Include(b => b.YearPublished)
+                                    .Include(b=> b.Publisher)
+                                    .Include(b=> b.Cover)
+                                    .Include(b=> b.Image)
+                                    .FirstOrDefault(x => x.Id == search);
+            if(book == null)
+            {
+                throw new EntityNotFoundException(search,nameof(Book));
+            }
             return new GetAllBookInfoDto
             {
                 BookName = book.Name,

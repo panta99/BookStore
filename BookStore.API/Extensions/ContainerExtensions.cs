@@ -1,5 +1,6 @@
 ﻿using BookStore.Application.UseCases.Commands;
 using BookStore.Application.UseCases.Commands.AuthorC;
+using BookStore.Application.UseCases.Commands.BookC;
 using BookStore.Application.UseCases.Commands.CoverC;
 using BookStore.Application.UseCases.Commands.GenreC;
 using BookStore.Application.UseCases.Commands.PublisherC;
@@ -12,6 +13,7 @@ using BookStore.Application.UseCases.Queries.PublisherQ;
 using BookStore.Application.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.UseCases.Commands.Author1;
 using BookStore.Implementation.UseCases.Commands.AuthorC;
+using BookStore.Implementation.UseCases.Commands.BookC;
 using BookStore.Implementation.UseCases.Commands.CoverC;
 using BookStore.Implementation.UseCases.Commands.GenreC;
 using BookStore.Implementation.UseCases.Commands.PublisherC;
@@ -23,6 +25,7 @@ using BookStore.Implementation.UseCases.Queries.GenreQ;
 using BookStore.Implementation.UseCases.Queries.PublisherC;
 using BookStore.Implementation.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.Validators;
+using BookStore.Implementation.Validators.BookValidators;
 using BookStore.Implementation.Validators.CoverValidators;
 using BookStore.Implementation.Validators.GenreValidators;
 using BookStore.Implementation.Validators.PublisherValidators;
@@ -50,6 +53,8 @@ namespace BookStore.API.Extensions
             //Cover Validators
             services.AddTransient<AddCoverValidator>();
             services.AddTransient<UpdateCoverValidator>();
+            //Book Validators
+            services.AddTransient<AddBookValidator>();
 
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
@@ -90,6 +95,7 @@ namespace BookStore.API.Extensions
         {
             services.AddTransient<IGetBooksQuery, EfGetBooksQuery>();
             services.AddTransient<IGetBookByIdQuery, EfGetBookByIdQuery>();
+            services.AddTransient<IAddBookCommand, EfAddBookCommand>();
         }
     }
 }
