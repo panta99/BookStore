@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "BuCkSelIWisIf6N468CuEYzmdb6EnELji3pzM8iEIkbfjESeUSu47RfC3HGbt/2cc7t5HVlJ6+cH0Nl+ChJPYw==",
+  "dgSpecHash": "/6sE2bhbb2ftHeHCU2B+5EphkraibWqfJdjBv1sHIEnLcrh3Q2L++XZvRrOGk19emuJ77Dex+maREb7Mp43WIg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Panta\\Desktop\\aspProjekat\\BookStore\\BookStore.API\\BookStore.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Panta\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512",
+    "C:\\Users\\Panta\\.nuget\\packages\\grpc.core.api\\2.56.0\\grpc.core.api.2.56.0.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",

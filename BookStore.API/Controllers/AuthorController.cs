@@ -6,6 +6,7 @@ using BookStore.Application.UseCases.DTO;
 using BookStore.Application.UseCases.DTO.AuthorDTOs;
 using BookStore.Application.UseCases.Queries;
 using BookStore.DataAccess;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

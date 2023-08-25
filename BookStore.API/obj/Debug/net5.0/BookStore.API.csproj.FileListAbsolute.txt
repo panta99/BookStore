@@ -74,3 +74,4 @@ C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\Micr
 C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
 C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\System.IO.Pipelines.dll
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\Grpc.Core.Api.dll

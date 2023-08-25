@@ -32,7 +32,7 @@ namespace BookStore.API.Controllers
                                          [FromServices] IGetBookByIdQuery query,
                                          [FromServices] IQueryHandler handler)
         {
-            return Ok(handler.HandleQuery(query,id));
+            return Ok(handler.HandleQuery(query, id));
         }
 
         // POST api/<BookController>
@@ -46,10 +46,21 @@ namespace BookStore.API.Controllers
 
         // PUT api/<BookController>/5
         [HttpPut("{id}")]
-        public void UpdateBook(int id, [FromBody] string value)
+        public IActionResult UpdateBook(int id,
+                               [FromBody] UpdateBookDto dto,
+                               [FromServices] IUpdateBookCommand command)
         {
+            dto.Id = id;
+            command.Execute(dto);
+            return Ok();
         }
-
+        [HttpPatch]
+        public IActionResult AddQuantity([FromQuery] UpdateBookQuantityDto dto,
+                                         [FromServices] IAddQuantityCommand command)
+        {
+            command.Execute(dto);
+            return Ok();
+        }
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
         public void DeleteBook(int id)
