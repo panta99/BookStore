@@ -54,7 +54,8 @@ namespace BookStore.Implementation.UseCases.Commands.BookC
                 {
                      Path = filePath,
                      Size = sizeInMb
-                } 
+                },
+                CreatedAt = DateTime.UtcNow             
             };
             Context.Add(book);
             Context.SaveChanges();

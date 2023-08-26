@@ -36,7 +36,8 @@ namespace BookStore.Implementation.UseCases.Commands.Author1
             var author = new Author
             {
                 FirstName = request.FirstName,
-                LastName = request.LastName
+                LastName = request.LastName,
+                CreatedAt = DateTime.UtcNow
             };
             Context.Add(author);
             Context.SaveChanges();

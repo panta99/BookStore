@@ -3,6 +3,7 @@ using BookStore.Application.UseCases.Commands.CoverC;
 using BookStore.Application.UseCases.Exceptions;
 using BookStore.DataAccess;
 using BookStore.Domain.Entites;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,9 @@ namespace BookStore.Implementation.UseCases.Commands.CoverC
 
         public void Execute(int request)
         {
-            var query = Context.Covers.Find(request);
+            var query = Context.Covers
+                               .Include(x=> x.Books)
+                               .FirstOrDefault(x=> x.Id == request);
             if(query == null)
             {
                 throw new EntityNotFoundException(request, nameof(Cover));

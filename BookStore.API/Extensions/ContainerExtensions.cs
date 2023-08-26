@@ -4,12 +4,14 @@ using BookStore.Application.UseCases.Commands.BookC;
 using BookStore.Application.UseCases.Commands.CoverC;
 using BookStore.Application.UseCases.Commands.GenreC;
 using BookStore.Application.UseCases.Commands.PublisherC;
+using BookStore.Application.UseCases.Commands.UserQ;
 using BookStore.Application.UseCases.Commands.YearPublishedC;
 using BookStore.Application.UseCases.Queries;
 using BookStore.Application.UseCases.Queries.BookQ;
 using BookStore.Application.UseCases.Queries.CoverQ;
 using BookStore.Application.UseCases.Queries.GenreQ;
 using BookStore.Application.UseCases.Queries.PublisherQ;
+using BookStore.Application.UseCases.Queries.UserQ;
 using BookStore.Application.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.UseCases.Commands.Author1;
 using BookStore.Implementation.UseCases.Commands.AuthorC;
@@ -17,18 +19,21 @@ using BookStore.Implementation.UseCases.Commands.BookC;
 using BookStore.Implementation.UseCases.Commands.CoverC;
 using BookStore.Implementation.UseCases.Commands.GenreC;
 using BookStore.Implementation.UseCases.Commands.PublisherC;
+using BookStore.Implementation.UseCases.Commands.UserC;
 using BookStore.Implementation.UseCases.Commands.YearPublishedC;
 using BookStore.Implementation.UseCases.Queries;
 using BookStore.Implementation.UseCases.Queries.BookQ;
 using BookStore.Implementation.UseCases.Queries.CoverQ;
 using BookStore.Implementation.UseCases.Queries.GenreQ;
 using BookStore.Implementation.UseCases.Queries.PublisherC;
+using BookStore.Implementation.UseCases.Queries.UserQ;
 using BookStore.Implementation.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.Validators;
 using BookStore.Implementation.Validators.BookValidators;
 using BookStore.Implementation.Validators.CoverValidators;
 using BookStore.Implementation.Validators.GenreValidators;
 using BookStore.Implementation.Validators.PublisherValidators;
+using BookStore.Implementation.Validators.UserValidators;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -56,6 +61,8 @@ namespace BookStore.API.Extensions
             //Book Validators
             services.AddTransient<AddBookValidator>();
             services.AddTransient<AddQuantityValidator>();
+            //User Validators
+            services.AddTransient<RegisterUserValidator>();
 
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
@@ -74,7 +81,7 @@ namespace BookStore.API.Extensions
         }
         public static void AddPublisherCommandsAndQueries(this IServiceCollection services)
         {
-            services.AddTransient<IGetPublishersQuery, EfGetPublisherQuery>();
+            services.AddTransient<IGetPublishersQuery, EfGetPublishersQuery>();
             services.AddTransient<IAddPublisherCommand, EfAddPublisherCommand>();
             services.AddTransient<IUpdatePublisherCommand, EfUpdatePublisherCommand>();
             services.AddTransient<IDeletePublisherCommand, EfDeletePublisherCommand>();
@@ -86,7 +93,7 @@ namespace BookStore.API.Extensions
         }
         public static void AddCoverCommandsAndQueries(this IServiceCollection services)
         {
-            services.AddTransient<IGetCoversQuery, EfGetCoverQuery>();
+            services.AddTransient<IGetCoversQuery, EfGetCoversQuery>();
             services.AddTransient<IAddCoverCommand, EfAddCoverCommand>();
             services.AddTransient<IUpdateCoverCommand, EfUpdateCoverCommand>();
             services.AddTransient<IDeleteCoverCommand, EfDeleteCoverCommand>();
@@ -99,6 +106,16 @@ namespace BookStore.API.Extensions
             services.AddTransient<IAddBookCommand, EfAddBookCommand>();
             services.AddTransient<IUpdateBookCommand, EfUpdateBookCommand>();
             services.AddTransient<IAddQuantityCommand, EfAddQuantityCommand>();
+            services.AddTransient<IDeleteBookCommand, EfDeleteBookCommand>();
+        }
+        public static void AddUserCommandAndQueries(this IServiceCollection services)
+        {
+            services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
+            services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
+            services.AddTransient<IUpdateUserCommand, EfUpdateUserCommand>();
+            services.AddTransient<IDeactivateUserCommand, EfDeactivateUserCommand>();
+            services.AddTransient<IActivateUserCommand, EfActivateUserCommand>();
+            services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
         }
     }
 }

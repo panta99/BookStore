@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace BookStore.Implementation.UseCases.Queries.CoverQ
 {
-    public class EfGetCoverQuery : EfUseCase, IGetCoversQuery
+    public class EfGetCoversQuery : EfUseCase, IGetCoversQuery
     {
-        public EfGetCoverQuery(BookStoreContext context) : base(context)
+        public EfGetCoversQuery(BookStoreContext context) : base(context)
         {
         }
 

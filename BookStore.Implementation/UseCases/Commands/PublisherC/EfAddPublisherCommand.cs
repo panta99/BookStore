@@ -32,7 +32,8 @@ namespace BookStore.Implementation.UseCases.Commands.PublisherC
             _validator.ValidateAndThrow(request);
             var publisher = new Publisher
             {
-                Name = request.Name
+                Name = request.Name,
+                CreatedAt = DateTime.UtcNow
             };
             Context.Publishers.Add(publisher);
             Context.SaveChanges();

@@ -75,3 +75,4 @@ C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\Syst
 C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
 C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\System.IO.Pipelines.dll
 C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\Grpc.Core.Api.dll
+C:\Users\Panta\Desktop\aspProjekat\BookStore\BookStore.API\bin\Debug\net5.0\BCrypt.Net-Core.dll

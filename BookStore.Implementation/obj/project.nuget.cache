@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "4IAVZkTSyi4nk47sq7RzwWlgKWwyhjwsNVLdxxHKpTJ2zfvljqmxMQvQ2zpKZ9KNvQXYveetTpOyDaEpBRmpKg==",
+  "dgSpecHash": "fPoKUH5tFCC3sZBxApAdW6gCDmNxAg8twYaQdI/OqnD9/66k11IC6bGM8t1WbnHc5n0o5BadTj+TTTHmxq1exA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Panta\\Desktop\\aspProjekat\\BookStore\\BookStore.Implementation\\BookStore.Implementation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Panta\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\Panta\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\grpc.core.api\\2.56.0\\grpc.core.api.2.56.0.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",

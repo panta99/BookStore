@@ -32,7 +32,8 @@ namespace BookStore.Implementation.UseCases.Commands.GenreC
             _validator.ValidateAndThrow(request);
             var genre = new Genre
             {
-                Name = request.Name
+                Name = request.Name,
+                CreatedAt = DateTime.UtcNow
             };
             Context.Genres.Add(genre);
             Context.SaveChanges();

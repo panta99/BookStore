@@ -14,7 +14,11 @@ namespace BookStore.DataAccess.Configuration
         {
             //Indexed
             builder.HasIndex(x => x.Email).IsUnique();
+            builder.HasIndex(x => x.Username).IsUnique();
             //Properties
+            builder.Property(x => x.Username)
+                    .IsRequired()
+                    .HasMaxLength(150);
             builder.Property(x => x.FirstName)
                    .IsRequired()
                    .HasMaxLength(150);

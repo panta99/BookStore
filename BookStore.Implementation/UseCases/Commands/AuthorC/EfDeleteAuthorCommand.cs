@@ -3,6 +3,7 @@ using BookStore.Application.UseCases.Commands.AuthorC;
 using BookStore.Application.UseCases.Exceptions;
 using BookStore.DataAccess;
 using BookStore.Domain.Entites;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,9 @@ namespace BookStore.Implementation.UseCases.Commands.AuthorC
 
         public void Execute(int id)
         {
-            var query = Context.Authors.Find(id);
+            var query = Context.Authors
+                               .Include(x=> x.BookAuthors)
+                               .FirstOrDefault(x=> x.Id == id);
             if(query == null)
             {
                 throw new EntityNotFoundException(id, nameof(Author));

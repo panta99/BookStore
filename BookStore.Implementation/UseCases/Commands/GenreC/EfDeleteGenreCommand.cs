@@ -3,6 +3,7 @@ using BookStore.Application.UseCases.Commands.GenreC;
 using BookStore.Application.UseCases.Exceptions;
 using BookStore.DataAccess;
 using BookStore.Domain.Entites;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,9 @@ namespace BookStore.Implementation.UseCases.Commands.GenreC
 
         public void Execute(int id)
         {
-            var query = Context.Genres.Find(id);
+            var query = Context.Genres
+                               .Include(x=> x.BookGenres)
+                               .FirstOrDefault(x=> x.Id == id);
             if(query == null)
             {
                 throw new EntityNotFoundException(id, nameof(Genre));

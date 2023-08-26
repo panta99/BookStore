@@ -34,6 +34,7 @@ namespace BookStore.Implementation.UseCases.Queries.BookQ
                                     .Include(b=> b.Publisher)
                                     .Include(b=> b.Cover)
                                     .Include(b=> b.Image)
+                                    .Where(b=> !b.DeletedAt.HasValue)
                                     .FirstOrDefault(x => x.Id == search);
             if(book == null)
             {
