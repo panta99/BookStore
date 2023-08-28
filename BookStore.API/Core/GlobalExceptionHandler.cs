@@ -59,6 +59,14 @@ namespace BookStore.API.Core
                     message = ex.Message
                 });
             }
+            catch(HttpStatusCodeException ex)
+            {
+                context.Response.StatusCode = ex.StatusCode;
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    message = ex.Message
+                });
+            }
         }
     }
 }

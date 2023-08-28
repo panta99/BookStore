@@ -1,13 +1,16 @@
 ﻿using BookStore.Application.UseCases.Commands;
 using BookStore.Application.UseCases.Commands.AuthorC;
 using BookStore.Application.UseCases.Commands.BookC;
+using BookStore.Application.UseCases.Commands.CartC;
 using BookStore.Application.UseCases.Commands.CoverC;
 using BookStore.Application.UseCases.Commands.GenreC;
 using BookStore.Application.UseCases.Commands.PublisherC;
+using BookStore.Application.UseCases.Commands.RoleUseCaseC;
 using BookStore.Application.UseCases.Commands.UserQ;
 using BookStore.Application.UseCases.Commands.YearPublishedC;
 using BookStore.Application.UseCases.Queries;
 using BookStore.Application.UseCases.Queries.BookQ;
+using BookStore.Application.UseCases.Queries.CartQ;
 using BookStore.Application.UseCases.Queries.CoverQ;
 using BookStore.Application.UseCases.Queries.GenreQ;
 using BookStore.Application.UseCases.Queries.PublisherQ;
@@ -16,13 +19,16 @@ using BookStore.Application.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.UseCases.Commands.Author1;
 using BookStore.Implementation.UseCases.Commands.AuthorC;
 using BookStore.Implementation.UseCases.Commands.BookC;
+using BookStore.Implementation.UseCases.Commands.CartC;
 using BookStore.Implementation.UseCases.Commands.CoverC;
 using BookStore.Implementation.UseCases.Commands.GenreC;
 using BookStore.Implementation.UseCases.Commands.PublisherC;
+using BookStore.Implementation.UseCases.Commands.RoleUseCaseC;
 using BookStore.Implementation.UseCases.Commands.UserC;
 using BookStore.Implementation.UseCases.Commands.YearPublishedC;
 using BookStore.Implementation.UseCases.Queries;
 using BookStore.Implementation.UseCases.Queries.BookQ;
+using BookStore.Implementation.UseCases.Queries.CartQ;
 using BookStore.Implementation.UseCases.Queries.CoverQ;
 using BookStore.Implementation.UseCases.Queries.GenreQ;
 using BookStore.Implementation.UseCases.Queries.PublisherC;
@@ -30,9 +36,11 @@ using BookStore.Implementation.UseCases.Queries.UserQ;
 using BookStore.Implementation.UseCases.Queries.YearPublishedQ;
 using BookStore.Implementation.Validators;
 using BookStore.Implementation.Validators.BookValidators;
+using BookStore.Implementation.Validators.CartValidators;
 using BookStore.Implementation.Validators.CoverValidators;
 using BookStore.Implementation.Validators.GenreValidators;
 using BookStore.Implementation.Validators.PublisherValidators;
+using BookStore.Implementation.Validators.UseCaseValidators;
 using BookStore.Implementation.Validators.UserValidators;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -63,6 +71,11 @@ namespace BookStore.API.Extensions
             services.AddTransient<AddQuantityValidator>();
             //User Validators
             services.AddTransient<RegisterUserValidator>();
+            //RoleUseCase Validators
+            services.AddTransient<AddUseCasesValidator>();
+            services.AddTransient<DeleteUseCasesValidator>();
+            //Cart Validators
+            services.AddTransient<AddBookToCartValidator>();
 
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
@@ -108,7 +121,7 @@ namespace BookStore.API.Extensions
             services.AddTransient<IAddQuantityCommand, EfAddQuantityCommand>();
             services.AddTransient<IDeleteBookCommand, EfDeleteBookCommand>();
         }
-        public static void AddUserCommandAndQueries(this IServiceCollection services)
+        public static void AddUserCommandsAndQueries(this IServiceCollection services)
         {
             services.AddTransient<IGetUsersQuery, EfGetUsersQuery>();
             services.AddTransient<IRegisterUserCommand, EfRegisterUserCommand>();
@@ -116,6 +129,17 @@ namespace BookStore.API.Extensions
             services.AddTransient<IDeactivateUserCommand, EfDeactivateUserCommand>();
             services.AddTransient<IActivateUserCommand, EfActivateUserCommand>();
             services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
+            services.AddTransient<IGetSpecificUserQuery, EfGetSpecificUserQuery>();
+        }
+        public static void AddRoleUseCasesCommandsAndQueries(this IServiceCollection services)
+        {
+            services.AddTransient<IAddRoleUseCasesCommand, EfAddRoleUseCasesCommand>();
+            services.AddTransient<IDeleteRoleUseCasesCommand, EfDeleteRoleUseCasesCommand>();
+        }
+        public static void AddCartCommandsAndQueries(this IServiceCollection services)
+        {
+            services.AddTransient<IAddBookToCartCommand,EfAddBookToCartCommand>();
+            services.AddTransient<IGetCartQuery, EfGetCartQuery>();
         }
     }
 }

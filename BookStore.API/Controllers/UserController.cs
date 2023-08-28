@@ -19,7 +19,14 @@ namespace BookStore.API.Controllers
     {
         // GET: api/<UserController>
         [HttpGet]
-        public IActionResult Get([FromQuery] UserSearch search,
+        public IActionResult GetUsers([FromQuery] UserSearch search,
+                                 [FromServices] IGetUsersQuery query,
+                                 [FromServices] IQueryHandler handler)
+        {
+            return Ok(handler.HandleQuery(query, search));
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetSpecificUser([FromQuery] UserSearch search,
                                  [FromServices] IGetUsersQuery query,
                                  [FromServices] IQueryHandler handler)
         {

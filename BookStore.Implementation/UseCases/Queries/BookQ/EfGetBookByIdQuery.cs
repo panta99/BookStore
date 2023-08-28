@@ -59,7 +59,8 @@ namespace BookStore.Implementation.UseCases.Queries.BookQ
                 {
                     Id = book.Image.Id,
                     Path = book.Image.Path
-                }
+                },
+                Quantity = book.QuantityInStock
             };
         }
     }

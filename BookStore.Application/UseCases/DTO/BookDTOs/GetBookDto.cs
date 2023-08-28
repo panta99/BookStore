@@ -28,5 +28,6 @@ namespace BookStore.Application.UseCases.DTO.BookDTOs
         public string Publisher { get; set; }
         public int YearPublished{ get; set; }
         public string Cover{ get; set; }
+        public int Quantity { get; set; }
     }
 }
