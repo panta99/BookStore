@@ -4,6 +4,7 @@ using BookStore.Application.UseCases.Commands.BookC;
 using BookStore.Application.UseCases.Commands.CartC;
 using BookStore.Application.UseCases.Commands.CoverC;
 using BookStore.Application.UseCases.Commands.GenreC;
+using BookStore.Application.UseCases.Commands.OrderC;
 using BookStore.Application.UseCases.Commands.PublisherC;
 using BookStore.Application.UseCases.Commands.RoleUseCaseC;
 using BookStore.Application.UseCases.Commands.UserQ;
@@ -13,6 +14,7 @@ using BookStore.Application.UseCases.Queries.BookQ;
 using BookStore.Application.UseCases.Queries.CartQ;
 using BookStore.Application.UseCases.Queries.CoverQ;
 using BookStore.Application.UseCases.Queries.GenreQ;
+using BookStore.Application.UseCases.Queries.OrderQ;
 using BookStore.Application.UseCases.Queries.PublisherQ;
 using BookStore.Application.UseCases.Queries.UserQ;
 using BookStore.Application.UseCases.Queries.YearPublishedQ;
@@ -22,6 +24,7 @@ using BookStore.Implementation.UseCases.Commands.BookC;
 using BookStore.Implementation.UseCases.Commands.CartC;
 using BookStore.Implementation.UseCases.Commands.CoverC;
 using BookStore.Implementation.UseCases.Commands.GenreC;
+using BookStore.Implementation.UseCases.Commands.OrderC;
 using BookStore.Implementation.UseCases.Commands.PublisherC;
 using BookStore.Implementation.UseCases.Commands.RoleUseCaseC;
 using BookStore.Implementation.UseCases.Commands.UserC;
@@ -31,6 +34,7 @@ using BookStore.Implementation.UseCases.Queries.BookQ;
 using BookStore.Implementation.UseCases.Queries.CartQ;
 using BookStore.Implementation.UseCases.Queries.CoverQ;
 using BookStore.Implementation.UseCases.Queries.GenreQ;
+using BookStore.Implementation.UseCases.Queries.OrderQ;
 using BookStore.Implementation.UseCases.Queries.PublisherC;
 using BookStore.Implementation.UseCases.Queries.UserQ;
 using BookStore.Implementation.UseCases.Queries.YearPublishedQ;
@@ -39,6 +43,7 @@ using BookStore.Implementation.Validators.BookValidators;
 using BookStore.Implementation.Validators.CartValidators;
 using BookStore.Implementation.Validators.CoverValidators;
 using BookStore.Implementation.Validators.GenreValidators;
+using BookStore.Implementation.Validators.OrderValidators;
 using BookStore.Implementation.Validators.PublisherValidators;
 using BookStore.Implementation.Validators.UseCaseValidators;
 using BookStore.Implementation.Validators.UserValidators;
@@ -76,6 +81,10 @@ namespace BookStore.API.Extensions
             services.AddTransient<DeleteUseCasesValidator>();
             //Cart Validators
             services.AddTransient<AddBookToCartValidator>();
+            services.AddTransient<DeleteBookValidator>();
+            //Order validators
+            services.AddTransient<CreateOrderValidator>();
+            services.AddTransient<UpdateOrderValidator>();
 
         }
         public static void AddAuthorCommandsAndQueries(this IServiceCollection services)
@@ -140,6 +149,15 @@ namespace BookStore.API.Extensions
         {
             services.AddTransient<IAddBookToCartCommand,EfAddBookToCartCommand>();
             services.AddTransient<IGetCartQuery, EfGetCartQuery>();
+            services.AddTransient<IDeleteBookFromCartCommand, EfDeleteBookFromCartCommand>();
+            services.AddTransient<IUpdateCartQuantityCommand, EfUpdateCartQuantityCommand>();
+        }
+        public static void AddOrderCommandsAndQueries(this IServiceCollection services)
+        {
+            services.AddTransient<ICreateOrderCommand, EfCreateOrderCommand>();
+            services.AddTransient<IGetOrderQuery, EfGetOrdersQuery>();
+            services.AddTransient<IUpdateOrderCommand, EfUpdateOrderCommand>();
+            services.AddTransient<IDeleteOrderCommand, EfDeleteOrderCommand>();
         }
     }
 }

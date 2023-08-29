@@ -36,15 +36,21 @@ namespace BookStore.API.Controllers
         }
 
         // PUT api/<CartController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPatch]
+        public IActionResult UpdateQuantity([FromQuery] UpdateCartDto dto,
+                                            [FromServices] IUpdateCartQuantityCommand command)
         {
+            command.Execute(dto);
+            return Ok();
         }
 
         // DELETE api/<CartController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        public IActionResult Delete([FromBody] DeleteBookFromCartDto dto,
+                                    [FromServices] IDeleteBookFromCartCommand command)
         {
+            command.Execute(dto);
+            return NoContent();
         }
     }
 }
