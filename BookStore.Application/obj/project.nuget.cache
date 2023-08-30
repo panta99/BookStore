@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "XX4TNXKFe/Uat1J6ZPl33IEikcZBiOw24RZ7ycRlqysSBvDFM3Z3so9irmUdEohAmWAN68oi4atEyVwFV9rcCw==",
+  "dgSpecHash": "OhXUDOe7vVcnAHijUDnMmjTUH8in/MOwGzONsdlWH7n3q7dRp8SSqvWnQJDBPj+mF9Dx5zWCFBUe9rjQ7x6cHQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Panta\\Desktop\\aspProjekat\\BookStore\\BookStore.Application\\BookStore.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Panta\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\Panta\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\Panta\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
   ],
   "logs": []

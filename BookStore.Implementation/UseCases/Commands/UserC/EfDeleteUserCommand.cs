@@ -24,7 +24,7 @@ namespace BookStore.Implementation.UseCases.Commands.UserC
 
         public void Execute(int id)
         {
-            var user = Context.Users.FirstOrDefault(x => x.Id == id);
+            var user = Context.Users.FirstOrDefault(x => x.Id == id && x.RoleId != 2);
             if(user == null || user.DeletedAt.HasValue)
             {
                 throw new EntityNotFoundException(id, nameof(User));

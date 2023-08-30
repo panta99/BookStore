@@ -1,6 +1,8 @@
-﻿using BookStore.Application.UseCaseHandling;
+﻿using BookStore.Application;
+using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands.YearPublishedC;
 using BookStore.Application.UseCases.Queries.YearPublishedQ;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,14 @@ namespace BookStore.API.Controllers
     [ApiController]
     public class YearPublishedController : ControllerBase
     {
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public YearPublishedController(ICommandHandler commandHandler, IApplicationActor actor)
+        {
+            _actor = actor;
+            _commandHandler = commandHandler;
+        }
+
         // GET api/<YearController>/5
         [HttpGet]
         public IActionResult GetYears(int? id,
@@ -29,7 +39,7 @@ namespace BookStore.API.Controllers
         public IActionResult AddYear([FromQuery] int year,
                                      [FromServices] IAddYearPublishedCommand command)
         {
-            command.Execute(year);
+            _commandHandler.HandleCommand(command, year);
             return StatusCode(201);
         }
     }

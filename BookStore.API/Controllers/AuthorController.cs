@@ -1,4 +1,5 @@
-﻿using BookStore.Application.Searches;
+﻿using BookStore.Application;
+using BookStore.Application.Searches;
 using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands;
 using BookStore.Application.UseCases.Commands.AuthorC;
@@ -6,6 +7,7 @@ using BookStore.Application.UseCases.DTO;
 using BookStore.Application.UseCases.DTO.AuthorDTOs;
 using BookStore.Application.UseCases.Queries;
 using BookStore.DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,10 +24,15 @@ namespace BookStore.API.Controllers
     public class AuthorController : ControllerBase
     {
         private BookStoreContext _context;
-        public AuthorController(BookStoreContext context)
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public AuthorController(BookStoreContext context, ICommandHandler commandHandler,IApplicationActor actor)
         {
+            _commandHandler = commandHandler;
             _context = context;
+            _actor = actor;
         }
+
         // GET: api/<AuthorController>
         //[HttpGet]
         //public IActionResult Get()
@@ -47,7 +54,7 @@ namespace BookStore.API.Controllers
         public IActionResult AddAuthor([FromBody] AddAuthorDto dto,
                                   [FromServices] IAddAuthorCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return StatusCode(201);
         }
 
@@ -57,7 +64,7 @@ namespace BookStore.API.Controllers
                                          [FromServices] IUpdateAuthorCommand command)
         {
             dto.Id = id;
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return Ok();
         }
 
@@ -65,7 +72,7 @@ namespace BookStore.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteAuthor(int id,[FromServices] IDeleteAuthorCommand command)
         {
-            command.Execute(id);
+            _commandHandler.HandleCommand(command, id);
             return NoContent();
         }
     }

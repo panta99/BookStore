@@ -1,8 +1,10 @@
-﻿using BookStore.Application.UseCaseHandling;
+﻿using BookStore.Application;
+using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands.PublisherC;
 using BookStore.Application.UseCases.DTO.PublisherDTOs;
 using BookStore.Application.UseCases.Queries.PublisherQ;
 using BookStore.Application.UseCases.Queries.Searches;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,14 @@ namespace BookStore.API.Controllers
     [ApiController]
     public class PublisherController : ControllerBase
     {
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public PublisherController(ICommandHandler commandHandler, IApplicationActor actor)
+        {
+            _actor = actor;
+            _commandHandler = commandHandler;
+        }
+
         // GET api/<PublisherController>/5
         [HttpGet]
         public IActionResult GetPublishers([FromQuery] PublisherSearch search,
@@ -31,7 +41,7 @@ namespace BookStore.API.Controllers
         public IActionResult AddPublisher([FromBody] AddPublisherDto dto,
                                           [FromServices] IAddPublisherCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return StatusCode(201);
         }
 
@@ -41,7 +51,7 @@ namespace BookStore.API.Controllers
                                                      [FromServices] IUpdatePublisherCommand command)
         {
             dto.Id = id;
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return Ok();
         }
 
@@ -50,7 +60,7 @@ namespace BookStore.API.Controllers
         public IActionResult DeletePublisher(int id,
                                              [FromServices] IDeletePublisherCommand command)
         {
-            command.Execute(id);
+            _commandHandler.HandleCommand(command, id);
             return NoContent();
         }
     }

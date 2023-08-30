@@ -1,4 +1,8 @@
-﻿using BookStore.Application.UseCases.Commands;
+﻿using BookStore.API.DTO;
+using BookStore.API.ErrorLogging;
+using BookStore.API.Jwt;
+using BookStore.Application.Logging;
+using BookStore.Application.UseCases.Commands;
 using BookStore.Application.UseCases.Commands.AuthorC;
 using BookStore.Application.UseCases.Commands.BookC;
 using BookStore.Application.UseCases.Commands.CartC;
@@ -47,10 +51,15 @@ using BookStore.Implementation.Validators.OrderValidators;
 using BookStore.Implementation.Validators.PublisherValidators;
 using BookStore.Implementation.Validators.UseCaseValidators;
 using BookStore.Implementation.Validators.UserValidators;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BookStore.API.Extensions
@@ -158,6 +167,83 @@ namespace BookStore.API.Extensions
             services.AddTransient<IGetOrderQuery, EfGetOrdersQuery>();
             services.AddTransient<IUpdateOrderCommand, EfUpdateOrderCommand>();
             services.AddTransient<IDeleteOrderCommand, EfDeleteOrderCommand>();
+        }
+        public static void AddJwt(this IServiceCollection services, AppSettings settings)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = settings.Jwt.Issuer,
+                    ValidateIssuer = true,
+                    ValidAudience = "Any",
+                    ValidateAudience = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(settings.Jwt.SecretKey)),
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+
+                cfg.Events = new JwtBearerEvents
+                {
+                    OnTokenValidated = context =>
+                    {
+                        //Token dohvatamo iz Authorization header-a
+
+                        var header = context.Request.Headers["Authorization"];
+
+                        var token = header.ToString().Split("Bearer ")[1];
+
+                        var handler = new JwtSecurityTokenHandler();
+
+                        var tokenObj = handler.ReadJwtToken(token);
+
+                        string jti = tokenObj.Claims.FirstOrDefault(x => x.Type == "jti").Value;
+
+
+                        //ITokenStorage
+
+                        ITokenStorage storage = context.HttpContext.RequestServices.GetService<ITokenStorage>();
+
+                        bool isValid = storage.TokenExists(jti);
+
+                        if (!isValid)
+                        {
+                            context.Fail("Token is not valid.");
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+        }
+
+        public static void AddLogger(this IServiceCollection services)
+        {
+            services.AddTransient<IErrorLogger>(x =>
+            {
+                var accesor = x.GetService<IHttpContextAccessor>();
+
+                if (accesor == null || accesor.HttpContext == null)
+                {
+                    return new ConsoleErrorLogger();
+                }
+
+                var logger = accesor.HttpContext.Request.Headers["Logger"].FirstOrDefault();
+
+                if(logger == "Console")
+                {
+                    return new ConsoleErrorLogger();
+                }
+                return new ConsoleErrorLogger();
+            });
         }
     }
 }

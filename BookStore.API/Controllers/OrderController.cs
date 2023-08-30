@@ -1,7 +1,9 @@
-﻿using BookStore.Application.UseCaseHandling;
+﻿using BookStore.Application;
+using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands.OrderC;
 using BookStore.Application.UseCases.DTO.OrderDTOs;
 using BookStore.Application.UseCases.Queries.OrderQ;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,8 +16,17 @@ namespace BookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public OrderController(ICommandHandler commandHandler, IApplicationActor actor)
+        {
+            _actor = actor;
+            _commandHandler = commandHandler;
+        }
+
         // GET api/<OrderController>/5
         [HttpGet]
         public IActionResult Get([FromQuery] GetOrderQuery dto,
@@ -31,7 +42,7 @@ namespace BookStore.API.Controllers
         public IActionResult CreateOrder([FromBody] CreateOrderDto dto,
                                          [FromServices] ICreateOrderCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return StatusCode(201);
         }
 
@@ -40,7 +51,7 @@ namespace BookStore.API.Controllers
         public IActionResult UpdateOrderStatus([FromQuery] UpdateOrderDto dto,
                                                [FromServices] IUpdateOrderCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return Ok();
         }
 
@@ -48,7 +59,7 @@ namespace BookStore.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id, [FromServices] IDeleteOrderCommand command)
         {
-            command.Execute(id);
+            _commandHandler.HandleCommand(command, id);
             return NoContent();
         }
     }

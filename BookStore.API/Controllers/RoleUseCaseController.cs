@@ -1,5 +1,8 @@
-﻿using BookStore.Application.UseCases.Commands.RoleUseCaseC;
+﻿using BookStore.Application;
+using BookStore.Application.UseCaseHandling;
+using BookStore.Application.UseCases.Commands.RoleUseCaseC;
 using BookStore.Application.UseCases.DTO.RoleUseCaseDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,14 +15,23 @@ namespace BookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class RoleUseCaseController : ControllerBase
     {
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public RoleUseCaseController(ICommandHandler commandHandler, IApplicationActor actor)
+        {
+            _actor = actor;
+            _commandHandler = commandHandler;
+        }
+
         // POST api/<RoleUseCaseController>
         [HttpPost]
         public IActionResult AddRoleUseCases([FromBody] RoleUseCaseCommandsDto dto,
                                              [FromServices] IAddRoleUseCasesCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return StatusCode(201);
         }
         // DELETE api/<RoleUseCaseController>/5
@@ -27,7 +39,7 @@ namespace BookStore.API.Controllers
         public IActionResult Delete([FromBody] RoleUseCaseCommandsDto dto,
                                     [FromServices] IDeleteRoleUseCasesCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return NoContent();
         }
     }

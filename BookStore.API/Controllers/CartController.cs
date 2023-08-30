@@ -1,7 +1,9 @@
-﻿using BookStore.Application.UseCaseHandling;
+﻿using BookStore.Application;
+using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands.CartC;
 using BookStore.Application.UseCases.DTO.CartDTOs;
 using BookStore.Application.UseCases.Queries.CartQ;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,8 +16,17 @@ namespace BookStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CartController : ControllerBase
     {
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public CartController(ICommandHandler commandHandler, IApplicationActor actor)
+        {
+            _actor = actor;
+            _commandHandler = commandHandler;
+        }
+
         // GET api/<CartController>/5
         [HttpGet("{id}")]
         public IActionResult GetCart(int id,
@@ -31,7 +42,7 @@ namespace BookStore.API.Controllers
         public IActionResult AddBookToCart([FromBody] AddBookToCartDto dto,
                                            [FromServices] IAddBookToCartCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return StatusCode(201);
         }
 
@@ -40,7 +51,7 @@ namespace BookStore.API.Controllers
         public IActionResult UpdateQuantity([FromQuery] UpdateCartDto dto,
                                             [FromServices] IUpdateCartQuantityCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return Ok();
         }
 
@@ -49,7 +60,7 @@ namespace BookStore.API.Controllers
         public IActionResult Delete([FromBody] DeleteBookFromCartDto dto,
                                     [FromServices] IDeleteBookFromCartCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return NoContent();
         }
     }

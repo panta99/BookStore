@@ -1,8 +1,10 @@
-﻿using BookStore.Application.UseCaseHandling;
+﻿using BookStore.Application;
+using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands.UserQ;
 using BookStore.Application.UseCases.DTO.UserDTOs;
 using BookStore.Application.UseCases.Queries.Searches;
 using BookStore.Application.UseCases.Queries.UserQ;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,14 @@ namespace BookStore.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public UserController(ICommandHandler commandHandler, IApplicationActor actor)
+        {
+            _actor = actor;
+            _commandHandler = commandHandler;
+        }
+
         // GET: api/<UserController>
         [HttpGet]
         public IActionResult GetUsers([FromQuery] UserSearch search,
@@ -44,7 +54,7 @@ namespace BookStore.API.Controllers
         public IActionResult RegisterUser([FromBody] RegisterUserDto dto,
                                           [FromServices] IRegisterUserCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return StatusCode(201);
         }
 
@@ -55,7 +65,7 @@ namespace BookStore.API.Controllers
                                  [FromServices] IUpdateUserCommand command)
         {
             dto.Id = id;
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return Ok();
         }
 
@@ -64,14 +74,14 @@ namespace BookStore.API.Controllers
         public IActionResult DeactivateUser(int id,
                                             [FromServices] IDeactivateUserCommand command)
         {
-            command.Execute(id);
+            _commandHandler.HandleCommand(command, id);
             return NoContent();
         }
         [HttpPatch("activate/{id}")]
         public IActionResult ActivateUser(int id,
                                             [FromServices] IActivateUserCommand command)
         {
-            command.Execute(id);
+            _commandHandler.HandleCommand(command, id);
             return NoContent();
         }
         // DELETE api/<UserController>/5
@@ -79,7 +89,7 @@ namespace BookStore.API.Controllers
         public IActionResult DeleteUser(int id,
                                         [FromServices] IDeleteUserCommand command)
         {
-            command.Execute(id);
+            _commandHandler.HandleCommand(command, id);
             return NoContent();
         }
     }

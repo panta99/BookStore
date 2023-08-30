@@ -29,8 +29,7 @@ namespace BookStore.DataAccess.Configuration
                    .IsRequired()
                    .HasMaxLength(150);
             builder.Property(x => x.Password)
-                   .IsRequired()
-                   .HasMaxLength(150);
+                   .IsRequired();
             //Relations
             builder.HasMany(x => x.Carts)
                    .WithOne(x => x.User)

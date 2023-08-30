@@ -1,8 +1,10 @@
-﻿using BookStore.Application.UseCaseHandling;
+﻿using BookStore.Application;
+using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands.BookC;
 using BookStore.Application.UseCases.DTO.BookDTOs;
 using BookStore.Application.UseCases.Queries.BookQ;
 using BookStore.Application.UseCases.Queries.Searches;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,14 @@ namespace BookStore.API.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public BookController(ICommandHandler commandHandler, IApplicationActor actor)
+        {
+            _actor = actor;
+            _commandHandler = commandHandler;
+        }
+
         // GET api/<BookController>
         [HttpGet]
         public IActionResult GetBooks([FromQuery] BookSearch search,
@@ -40,7 +50,7 @@ namespace BookStore.API.Controllers
         public IActionResult AddBook([FromBody] AddBookDto dto,
                                      [FromServices] IAddBookCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return StatusCode(201);
         }
 
@@ -51,14 +61,14 @@ namespace BookStore.API.Controllers
                                [FromServices] IUpdateBookCommand command)
         {
             dto.Id = id;
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return Ok();
         }
         [HttpPatch]
         public IActionResult AddQuantity([FromQuery] UpdateBookQuantityDto dto,
                                          [FromServices] IAddQuantityCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return Ok();
         }
         // DELETE api/<BookController>/5
@@ -66,7 +76,7 @@ namespace BookStore.API.Controllers
         public IActionResult DeleteBook(int id,
                                         [FromServices] IDeleteBookCommand command)
         {
-            command.Execute(id);
+            _commandHandler.HandleCommand(command, id);
             return NoContent();
         }
     }

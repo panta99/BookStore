@@ -1,9 +1,11 @@
-﻿using BookStore.Application.UseCaseHandling;
+﻿using BookStore.Application;
+using BookStore.Application.UseCaseHandling;
 using BookStore.Application.UseCases.Commands.GenreC;
 using BookStore.Application.UseCases.DTO.GenreDTOs;
 using BookStore.Application.UseCases.Queries.GenreQ;
 using BookStore.Application.UseCases.Queries.Searches;
 using BookStore.DataAccess;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,8 +21,12 @@ namespace BookStore.API.Controllers
     public class GenreController : ControllerBase
     {
         private BookStoreContext _context;
-        public GenreController(BookStoreContext context)
+        private ICommandHandler _commandHandler;
+        private readonly IApplicationActor _actor;
+        public GenreController(BookStoreContext context, ICommandHandler commandHandler, IApplicationActor actor)
         {
+            _actor = actor;
+            _commandHandler = commandHandler;
             _context = context;
         }
         [HttpGet]
@@ -36,7 +42,7 @@ namespace BookStore.API.Controllers
         public IActionResult AddGenre([FromBody] AddGenreDto dto,
                                   [FromServices] IAddGenreCommand command)
         {
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return StatusCode(201);
         }
 
@@ -47,7 +53,7 @@ namespace BookStore.API.Controllers
                                     [FromServices] IUpdateGenreCommand command)
         {
             dto.Id = id;
-            command.Execute(dto);
+            _commandHandler.HandleCommand(command, dto);
             return Ok();
         }
 
@@ -56,7 +62,7 @@ namespace BookStore.API.Controllers
         public IActionResult DeleteGenre(int id,
                                [FromServices] IDeleteGenreCommand command)
         {
-            command.Execute(id);
+            _commandHandler.HandleCommand(command, id);
             return NoContent();
         }
     }
